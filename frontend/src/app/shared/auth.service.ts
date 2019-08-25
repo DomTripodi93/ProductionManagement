@@ -3,6 +3,7 @@ import { Subject } from 'rxjs';
 import { HttpClient} from '@angular/common/http';
 import { User } from '../register/user.model';
 import { Signin } from '../register/signin/signin.model';
+import { map } from 'rxjs/operators';
 
 @Injectable({providedIn:'root'})
 export class AuthService {
@@ -10,9 +11,16 @@ export class AuthService {
     token = '';
     user = '';
     name = '';
+    isNew = false;
     isAuthenticated = false;
     apiUrl = 'http://localhost:8000/api';
     public authChanged = new Subject();
+    makeOld = {
+      is_new: false
+    }
+    makeNew = {
+      is_new: true
+    }
 
     constructor(
         private http: HttpClient
@@ -43,6 +51,30 @@ export class AuthService {
             observe: 'response'
           }
         )
+    }
+
+    checkNew(id){
+      return this.http.get(
+        this.apiUrl + "/usersettings/" +id,
+      )
+      .pipe(
+        map((responseData: User) => {
+          this.isNew = responseData.is_new;
+        return responseData;
+        })
+      )
+    }
+
+    changeNew(id){
+      if (this.isNew == true){
+        return this.http.patch(
+          this.apiUrl + "/usersettings/" + id + "/", this.makeOld      
+        );
+      } else {
+        return this.http.patch(
+          this.apiUrl + "/usersettings/" + id + "/", this.makeNew
+        );
+      }
     }
 
     logChanges(values, model, type, id){

@@ -9,7 +9,8 @@ Models = (
     models.Machine,
     models.Part,
     models.HourlyProduction,
-    models.ChangeLog
+    models.ChangeLog,
+    models.UserSettings
     )
 
 admin.site.register(Models)
