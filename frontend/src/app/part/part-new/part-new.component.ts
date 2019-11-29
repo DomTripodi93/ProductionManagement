@@ -86,9 +86,9 @@ export class PartNewComponent implements OnInit {
       if (this.isError){
         this.error = "That job already exsists on that machine!";
       } else if (this.andCalculate == "length"){
-        this.router.navigate(["parts/calculator/job"])
+        this.router.navigate(["parts/calculator/job/"+data.job])
       } else if (this.andCalculate == "weight"){
-        this.router.navigate(["parts/calculator/weight"])
+        this.router.navigate(["parts/calculator/weight"+data.job])
       } else {
         this.router.navigate([".."], {relativeTo: this.route})
       }
