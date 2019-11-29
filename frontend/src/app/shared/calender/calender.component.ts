@@ -73,7 +73,7 @@ export class CalenderComponent implements OnInit {
 
 
   setDate(){
-    this.daysInMonth(this.year, this.month);
+    this.daysInMonth(this.year, this.month+1);
     this.monthDays = _.range(1, this.numberOfDays + 1);
     this.firstDay = new Date(this.year, this.month, 1);
     this.firstDayOfMonth = _.range(0, this.firstDay.getDay());
