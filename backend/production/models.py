@@ -147,3 +147,17 @@ class ChangeLog(models.Model):
         return self.old_values
     class Meta:
         verbose_name_plural = "Logged Changes"
+
+class Settings(models.Model):
+    user = models.ForeignKey(ProUser,
+                            on_delete = models.CASCADE)
+    is_new = models.BooleanField(default = True)
+    skip_lathe = models.BooleanField(default = False)
+    skip_mill = models.BooleanField(default = False)
+    default_start_time = models.CharField(max_length=8)
+    default_bar_end = models.CharField(max_length=8)
+    default_bar_cut = models.CharField(max_length=8)
+    def __str__(self):
+        return self.user + "settings"
+    class Meta:
+        verbose_name_plural = "Settings Sets"
